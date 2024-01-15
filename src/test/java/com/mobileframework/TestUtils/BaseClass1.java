@@ -30,7 +30,7 @@ public class BaseClass1 {
 	public AppiumDriver driver;
 	public AppiumDriverLocalService service;
 
-	String platformName = "IOS";// ("Android, IOS")
+	String platformName = "Android";// ("Android, IOS")
 	
 	/* //****For Future XML
 		String platformName= "Android";
@@ -62,13 +62,20 @@ public class BaseClass1 {
 		switch (platformName) {
 		case "Android":
 			
-			APP = "/Users/gilberto.barraza/Desktop/MobileAutomation/Git_Projects/"
+			/*APP = "/Users/gilberto.barraza/Desktop/MobileAutomation/Git_Projects/"
 					+ "JavaAppium2024/src/test/java/com/mobileframework/Resources/ApiDemos-debug.apk";
+			*/
+			File f = new File("src/test/java/com/mobileframework/Resources");		
+			File fs = new File(f, "ApiDemos-debug.apk");	
+
+
+
 			
 			caps.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel_5_API_29");
 			caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10");
 			caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
-			caps.setCapability("app", APP);
+			//caps.setCapability("app", APP);
+			caps.setCapability(MobileCapabilityType.APP, fs.getAbsolutePath());
 			caps.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
 			//caps.setCapability(AndroidMobileCapabilityType.SYSTEM_PORT, (sysport));
 			//caps.setCapability(AndroidMobileCapabilityType.ADB_EXEC_TIMEOUT, 120000);
