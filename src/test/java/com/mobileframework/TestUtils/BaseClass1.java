@@ -19,7 +19,9 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 
 public class BaseClass1 {
-
+	
+	//public InitialPage initialPage;//uncomment to run subsequent tests
+	
 	private String APP;
 	private static final int portNumber = 4725;
 	// String portNumber = 4725;
@@ -28,7 +30,7 @@ public class BaseClass1 {
 	public AppiumDriver driver;
 	public AppiumDriverLocalService service;
 
-	String platformName = "Android";// ("Android, IOS")
+	String platformName = "IOS";// ("Android, IOS")
 	
 	/* //****For Future XML
 		String platformName= "Android";
@@ -39,7 +41,11 @@ public class BaseClass1 {
 	*/ //******************
 	
 	DesiredCapabilities caps = new DesiredCapabilities();
-
+	
+	/* Appium is started and app will be installed one time before Tests class,
+	if test class have Multiple tests, subsequent test will start running from the previous once ended if
+	subsequent test does not start from the previous one ended test will fail*/
+	
 	@BeforeClass(alwaysRun = true) // Appium is started before Tests class
 
 	// Start Appium Server and driver
@@ -56,8 +62,8 @@ public class BaseClass1 {
 		switch (platformName) {
 		case "Android":
 			
-			APP = "/Users/gilberto.barraza/Desktop/MobileAutomation/MobileProject/"
-					+ "JavaAppium2024/AppiumFramework/src/test/java/com/mobileframework/Resources/ApiDemos-debug.apk";
+			APP = "/Users/gilberto.barraza/Desktop/MobileAutomation/Git_Projects/"
+					+ "JavaAppium2024/src/test/java/com/mobileframework/Resources/ApiDemos-debug.apk";
 			
 			caps.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel_5_API_29");
 			caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10");
@@ -69,12 +75,11 @@ public class BaseClass1 {
 			//caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 3000);
 
 			driver = new AndroidDriver(new URL("http://localhost:" + portNumber + "/wd/hub"), caps);
+			//initialPage = new InitialPage(driver);//uncomment to run subsequent tests
 			break;
 		case "IOS":
 			
-			APP = "/Users/gilberto.barraza/Library/Developer/Xcode/DerivedData/"
-					+ "UIKitCatalog-deznigzoptzaldacjdmocohwiigl/Build/Products/"
-					+ "Debug-iphonesimulator/UIKitCatalog.app";
+			APP = "/Users/gilberto.barraza/Library/Developer/Xcode/DerivedData/UIKitCatalog-fwjfzsgkfzqmcpeufmmrbitzexid/Build/Products/Debug-iphonesimulator/UIKitCatalog.app";
 			
 			caps.setCapability("appium:platformName", MobilePlatform.IOS);
 			caps.setCapability("deviceName", "iPhone 14 Pro");
