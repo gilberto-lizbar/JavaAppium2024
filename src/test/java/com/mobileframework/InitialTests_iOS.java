@@ -13,5 +13,11 @@ public class InitialTests_iOS extends BaseClass1 {
 		firstPage.clickAlertViewButton();
 	}
 	
+	@Test
+	public void secondTest_iOS(){
+		InitialPage_iOS firstPage = new InitialPage_iOS(driver);
+		firstPage.clickAlertViewButton();
+	}
+	
 
 }
