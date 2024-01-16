@@ -1,5 +1,7 @@
 package com.mobileframework.pageObjects.android;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
@@ -40,6 +42,9 @@ public class InitialPage extends AndroidActions {	//extends android actions to i
 
 	@AndroidFindBy(xpath = "//*[@text='Views']")
 	private WebElement viewButton;
+	
+	@AndroidFindBy(xpath = "//android.widget.EditText")
+	private List<WebElement> TextFields;
 
 	// ******Action Methods***********
 	public void clickPreferenceButton() {
@@ -48,6 +53,13 @@ public class InitialPage extends AndroidActions {	//extends android actions to i
 
 	public void clickViewButton() {
 		viewButton.click();
+	}
+	
+	public void typeTextFields(int fieldnum, String text) {
+		
+		int totalFields = TextFields.size();
+		System.out.println("Total Fields "+totalFields);
+		TextFields.get(fieldnum).sendKeys(text);;
 	}
 
 }

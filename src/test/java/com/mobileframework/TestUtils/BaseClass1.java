@@ -23,14 +23,14 @@ public class BaseClass1 {
 	//public InitialPage initialPage;//uncomment to run subsequent tests
 	
 	private String APP;
-	private static final int portNumber = 4725;
+	//private static final int portNumber = 4725;
 	// String portNumber = 4725;
 	private static final int sysport = 8101;
 
 	public AppiumDriver driver;
 	public AppiumDriverLocalService service;
 
-	String platformName = "Android";// ("Android, IOS")
+	String platformName = "IOS";// ("Android, IOS")
 	
 	/* //****For Future XML
 		String platformName= "Android";
@@ -54,9 +54,15 @@ public class BaseClass1 {
 		// Android driver, iOS Driver
 		// Appium Code>Appium Server>Mobile
 
-		AppiumDriverLocalService service = new AppiumServiceBuilder()
+		/*AppiumDriverLocalService service = new AppiumServiceBuilder()
 				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
 				.withIPAddress("127.0.0.1").withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/").usingPort(portNumber)
+				.build();*/
+		
+		//Add anyfreePort() method to get a free port to use for appium test
+		AppiumDriverLocalService service = new AppiumServiceBuilder()
+				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+				.withIPAddress("127.0.0.1").withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/").usingAnyFreePort()
 				.build();
 		service.start();
 		switch (platformName) {
@@ -81,7 +87,9 @@ public class BaseClass1 {
 			//caps.setCapability(AndroidMobileCapabilityType.ADB_EXEC_TIMEOUT, 120000);
 			//caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 3000);
 
-			driver = new AndroidDriver(new URL("http://localhost:" + portNumber + "/wd/hub"), caps);
+			//driver = new AndroidDriver(new URL("http://localhost:" + portNumber + "/wd/hub"), caps);
+			//Build Android driver and get service url from any free port
+			driver = new AndroidDriver(service.getUrl(), caps);
 			//initialPage = new InitialPage(driver);//uncomment to run subsequent tests
 			break;
 		case "IOS":
@@ -98,7 +106,9 @@ public class BaseClass1 {
 			caps.setCapability("wdaLocalPort", sysport);
 			caps.setCapability("wdaLaunchTimeout", "30000");
 
-			driver = new IOSDriver(new URL("http://localhost:" + portNumber + "/wd/hub"), caps);
+			//driver = new IOSDriver(new URL("http://localhost:" + portNumber + "/wd/hub"), caps);
+			//Build iOS driver and get service url from any free port
+			driver = new IOSDriver(service.getUrl(), caps);
 			break;
 		default:
 			System.out.println(platformName + " Platform is not valid");
