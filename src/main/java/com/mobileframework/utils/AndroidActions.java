@@ -9,11 +9,13 @@ import org.openqa.selenium.WebElement;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 
-public class AndroidActions {
+public class AndroidActions extends AppiumUtils{
 	
 	AppiumDriver driver;
 	
 	public AndroidActions(AppiumDriver driver){
+		super(driver);/*now the parent class is AppiumUtils need to refer
+		to the driver from this class*/
 		this.driver = driver;
 	}
 	
