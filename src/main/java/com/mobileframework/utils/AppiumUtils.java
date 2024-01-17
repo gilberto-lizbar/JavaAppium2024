@@ -16,8 +16,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 
 public class AppiumUtils {
+	
+	public AppiumDriverLocalService service;
 
 	// ***********
 	// AppiumDriver driver;//This is a global variable which will be initialize on
@@ -29,6 +34,26 @@ public class AppiumUtils {
 	 * public AppiumUtils(AppiumDriver driver){ this.driver = driver;//This refer to
 	 * class variable 'driver' }
 	 */
+	
+	//Call this method on base class if want to start server locally in a random port
+	public AppiumDriverLocalService startAppiumServer(){
+		AppiumDriverLocalService service = new AppiumServiceBuilder()
+				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+				.withIPAddress("127.0.0.1").withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/").usingAnyFreePort()
+				.build();
+		service.start();
+		return service;
+	}
+	//This overload method is used to specify address and port to start appium server
+	public AppiumDriverLocalService startAppiumServer(String ipAddress, int port){
+		AppiumDriverLocalService service = new AppiumServiceBuilder()
+				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
+				.withIPAddress(ipAddress).withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/").usingPort(port)
+				.build();
+		service.start();
+		return service;
+	}
+	
 
 	public Double getFormattedAmount(String amount) {
 		Double price = Double.parseDouble(amount.substring(1));
