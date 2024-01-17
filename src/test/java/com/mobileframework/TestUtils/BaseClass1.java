@@ -1,8 +1,12 @@
 package com.mobileframework.TestUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.time.Duration;
+import java.util.Properties;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
@@ -29,7 +33,7 @@ public class BaseClass1 extends AppiumUtils {
 	private static final int sysport = 8101;
 
 	public AppiumDriver driver;
-	public AppiumDriverLocalService service;
+	//public AppiumDriverLocalService service;
 
 	String platformName = "Android";// ("Android, IOS")
 	
@@ -50,7 +54,20 @@ public class BaseClass1 extends AppiumUtils {
 	@BeforeClass(alwaysRun = true) // Appium is started before Tests class
 
 	// Start Appium Server and driver
-	public void configureAppium() throws MalformedURLException {
+	public void configureAppium() throws IOException {
+		
+		Properties prop = new Properties();
+		FileInputStream file = new FileInputStream(System.getProperty("user.dir")
+				+"/src/test/java/com/mobileframework/Resources/data.properties");
+		prop.load(file);
+		
+		String ipAddress = prop.getProperty("ipAddress");
+		String port = prop.getProperty("port");
+		
+		//optimizing code and declaring method to start appium in appiumUtils
+		//service = startAppiumServer(ipAddress, Integer.parseInt(port));	
+		service = startAppiumServer();
+		
 		// code to start the server
 		// Android driver, iOS Driver
 		// Appium Code>Appium Server>Mobile
@@ -61,14 +78,17 @@ public class BaseClass1 extends AppiumUtils {
 				.build();*/
 		
 		//Add anyfreePort() method to get a free port to use for appium test
-		AppiumDriverLocalService service = new AppiumServiceBuilder()
+		/*AppiumDriverLocalService service = new AppiumServiceBuilder()
 				.withAppiumJS(new File("/usr/local/lib/node_modules/appium/build/lib/main.js"))
 				.withIPAddress("127.0.0.1").withArgument(GeneralServerFlag.BASEPATH, "/wd/hub/").usingAnyFreePort()
 				.build();
-		service.start();
+		service.start();*/
+		
+		
+		
+		
 		switch (platformName) {
 		case "Android":
-			
 			/*APP = "/Users/gilberto.barraza/Desktop/MobileAutomation/Git_Projects/"
 					+ "JavaAppium2024/src/test/java/com/mobileframework/Resources/ApiDemos-debug.apk";
 			*/
@@ -78,7 +98,8 @@ public class BaseClass1 extends AppiumUtils {
 
 
 			
-			caps.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel_5_API_29");
+			//caps.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel_5_API_29");
+			caps.setCapability(MobileCapabilityType.DEVICE_NAME, prop.get("deviceName"));
 			caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10");
 			caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
 			//caps.setCapability("app", APP);
@@ -95,7 +116,9 @@ public class BaseClass1 extends AppiumUtils {
 			break;
 		case "IOS":
 			
-			APP = "/Users/gilberto.barraza/Library/Developer/Xcode/DerivedData/UIKitCatalog-fwjfzsgkfzqmcpeufmmrbitzexid/Build/Products/Debug-iphonesimulator/UIKitCatalog.app";
+			APP = "/Users/gilberto.barraza/Library/Developer/Xcode/DerivedData/"
+					+ "UIKitCatalog-fwjfzsgkfzqmcpeufmmrbitzexid/Build/Products/"
+					+ "Debug-iphonesimulator/UIKitCatalog.app";
 			
 			caps.setCapability("appium:platformName", MobilePlatform.IOS);
 			caps.setCapability("deviceName", "iPhone 14 Pro");
