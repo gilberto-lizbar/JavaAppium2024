@@ -10,7 +10,7 @@ import com.mobileframework.pageObjects.android.InitialPage;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.StartsActivity;
 
-public class DataProviderTests extends BaseClass1 {
+public class MultipleDataSetTests extends BaseClass1 {
 	
 		InitialPage initialPage;
 		
@@ -19,38 +19,25 @@ public class DataProviderTests extends BaseClass1 {
 		@BeforeMethod
 		public void presetup(){
 			initialPage = new InitialPage(driver);
-			Activity activity = new Activity("io.appium.android.apis","io.appium.android.apis.ApiDemos");
-			((StartsActivity) driver).startActivity(activity);
-		}
-		
-		@Test
-
-		public void nodataProviderTest() {
-
-			initialPage.clickViewButton();
-			initialPage.scrollDownToVisibleElement("TextFields");
-			initialPage.typeTextFields(0, "Gilberto");
-			initialPage.typeTextFields(1, "Tests");
-			initialPage.typeTextFields(2, "Other Test");
+			initialPage.setActivity();
 		}
 		
 		@Test(dataProvider="getData")//Indicate test method will use data Provider
-
+	
 		public void dataProviderTest(String field1, String field2, String field3) {
-
 			initialPage.clickViewButton();
 			initialPage.scrollDownToVisibleElement("TextFields");
-			initialPage.typeTextFields(0, field1);
-			initialPage.typeTextFields(1, field2);
-			initialPage.typeTextFields(2, field3);
+			initialPage.typeTextFields(0, "test");
+			initialPage.typeTextFields(1, "ddas");
+			initialPage.typeTextFields(2, "dfds");
 		}
 		
 		/*Add Data Provider annotation and create a bidimensional array
 		to store values*/
 		@DataProvider()
 		public Object getData(){
-			return new Object[][] {{"DataProvider1","DataProvider2","DataProvider3"}};
+			return new Object[][] {{"Gilberto","Test","Another"},
+				{"DataProvider1","DataProvider2","DataProvider3"}};
 		}
-		
-		
+				
 }
