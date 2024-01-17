@@ -16,7 +16,7 @@ public class IOSActions extends AppiumUtils {
 	AppiumDriver driver;
 	
 	public IOSActions(AppiumDriver driver){
-		super(driver);/*now the parent class is AppiumUtils need to refer
+		/*super(driver);/7now the parent class is AppiumUtils need to refer
 		to the driver from this class*/
 		this.driver = driver;
 	}

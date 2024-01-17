@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import com.mobileframework.utils.AndroidActions;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.StartsActivity;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
@@ -61,5 +63,9 @@ public class InitialPage extends AndroidActions {	//extends android actions to i
 		System.out.println("Total Fields "+totalFields);
 		TextFields.get(fieldnum).sendKeys(text);;
 	}
-
+	//******Set Activity Method
+	public void setActivity() {
+	Activity activity = new Activity("io.appium.android.apis","io.appium.android.apis.ApiDemos");
+	((StartsActivity) driver).startActivity(activity);
+	}
 }

@@ -2,12 +2,13 @@ package com.mobileframework.TestUtils;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+
+import com.mobileframework.utils.AppiumUtils;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -18,7 +19,7 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 
-public class BaseClass1 {
+public class BaseClass1 extends AppiumUtils {
 	
 	//public InitialPage initialPage;//uncomment to run subsequent tests
 	
@@ -30,7 +31,7 @@ public class BaseClass1 {
 	public AppiumDriver driver;
 	public AppiumDriverLocalService service;
 
-	String platformName = "IOS";// ("Android, IOS")
+	String platformName = "Android";// ("Android, IOS")
 	
 	/* //****For Future XML
 		String platformName= "Android";

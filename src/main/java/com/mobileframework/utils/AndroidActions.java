@@ -14,7 +14,7 @@ public class AndroidActions extends AppiumUtils{
 	AppiumDriver driver;
 	
 	public AndroidActions(AppiumDriver driver){
-		super(driver);/*now the parent class is AppiumUtils need to refer
+		/*super(driver);//now the parent class is AppiumUtils need to refer
 		to the driver from this class*/
 		this.driver = driver;
 	}
