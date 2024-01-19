@@ -137,7 +137,7 @@ public class BaseClass1 extends AppiumUtils {
 		default:
 			System.out.println(platformName + " Platform is not valid");
 		}
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 	}
 

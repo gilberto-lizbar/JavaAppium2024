@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -53,13 +55,6 @@ public class AppiumUtils {
 		service.start();
 		return service;
 	}
-	
-
-	public Double getFormattedAmount(String amount) {
-		Double price = Double.parseDouble(amount.substring(1));
-		System.out.println(price);
-		return price;
-	}
 
 	public List<HashMap<String, String>> getJsonData(String jsonFilePath) throws IOException {
 		// System.getProperty("user.dir")+"//src//test//java//org//rahulshettyacademy//testData//eCommerce.json"
@@ -87,6 +82,19 @@ public class AppiumUtils {
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
-	// Wait until element is present as maximum 10 second and stored as a WebElement
-
+	public String getScreenshotPath(String testCaseName, AppiumDriver driver) throws IOException
+	{
+		File source = driver.getScreenshotAs(OutputType.FILE);
+		String destinationFile = System.getProperty("user.dir")+"/reports/"+testCaseName+".png";
+		FileUtils.copyFile(source, new File(destinationFile));
+		return destinationFile;
+		//1. capture and place in folder //2. extent report pick file and attach to report	
+	}
+	
+	public static String takeScreenshotBase64(String testCaseName, AppiumDriver driver) throws IOException{
+		String base64ScreenshotCode = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BASE64);
+		return base64ScreenshotCode;
+	}
+	
+	
 }
