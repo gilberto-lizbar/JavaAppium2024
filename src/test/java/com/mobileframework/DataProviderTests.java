@@ -4,13 +4,13 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 
-import com.mobileframework.TestUtils.BaseClass1;
+import com.mobileframework.TestUtils.BaseClass;
 import com.mobileframework.pageObjects.android.InitialPage;
 
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.StartsActivity;
 
-public class DataProviderTests extends BaseClass1 {
+public class DataProviderTests extends BaseClass {
 	
 		InitialPage initialPage;
 		

@@ -5,13 +5,13 @@ import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.mobileframework.TestUtils.BaseClass1;
+import com.mobileframework.TestUtils.BaseClass;
 import com.mobileframework.pageObjects.android.InitialPage;
 
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.StartsActivity;
 
-public class NonSubsequentTest extends BaseClass1 {
+public class NonSubsequentTest extends BaseClass {
 	
 	//InitialPage initialPage = new InitialPage(driver);
 		InitialPage initialPage;

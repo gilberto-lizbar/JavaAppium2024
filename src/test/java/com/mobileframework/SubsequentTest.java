@@ -4,10 +4,10 @@ import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
-import com.mobileframework.TestUtils.BaseClass1;
+import com.mobileframework.TestUtils.BaseClass;
 import com.mobileframework.pageObjects.android.InitialPage;
 
-public class SubsequentTest extends BaseClass1{
+public class SubsequentTest extends BaseClass{
 	
 	/* *******To run subsequent test cases by initializing the Object only 1 time from BaseClass
 	   add this variable: 'public InitialPage initialPage;' and initialize
